@@ -23,6 +23,13 @@ public class IndexControl {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        try (InputStream io = loader.getResourceAsStream("templates/mainTable.html")) {
+            while ((read = io.read()) != -1) {
+                indexBuilder.append((char) read);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         return indexBuilder.toString();
     }
 }
