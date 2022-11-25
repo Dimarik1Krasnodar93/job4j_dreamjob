@@ -15,18 +15,7 @@ public class PostController {
 
     @GetMapping("/posts")
     public String posts(Model model) {
-        StringBuilder stringBuilder = new StringBuilder();
-        final ClassLoader loader = IndexControl.class.getClassLoader();
-        int read;
-        try (InputStream io = loader.getResourceAsStream("templates/posts.html")) {
-            while ((read = io.read()) != -1) {
-                stringBuilder.append((char) read);
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        var result = model.addAttribute("posts", postStore.findAll());
-        stringBuilder.append(result);
-        return stringBuilder.toString();
+        model.addAttribute("posts", postStore.findAll());
+        return "posts";
     }
 }
