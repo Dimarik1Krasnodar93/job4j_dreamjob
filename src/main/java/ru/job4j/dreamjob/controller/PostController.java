@@ -9,7 +9,7 @@ import ru.job4j.dreamjob.store.PostStore;
 import java.io.IOException;
 import java.io.InputStream;
 
-@RestController
+@Controller
 public class PostController {
     private final PostStore postStore = PostStore.instOf();
 
