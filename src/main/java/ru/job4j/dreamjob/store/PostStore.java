@@ -16,7 +16,7 @@ public class PostStore {
     private PostStore() {
         posts.put(1, new Post(1, "Junior Java Job", "descriptopn 1", LocalDate.of(2022, 1, 1)));
         posts.put(2, new Post(2, "Middle Java Job", "descriptopn 1", LocalDate.of(2022, 10, 1)));
-        posts.put(3, new Post(3, "Senior Java Job", "descriptopn 1", LocalDate.of(2022, 9, 1)));
+        posts.put(3, new Post(3, "Senior Java Job1", "descriptopn 1", LocalDate.of(2022, 9, 1)));
     }
 
     public static PostStore instOf() {
