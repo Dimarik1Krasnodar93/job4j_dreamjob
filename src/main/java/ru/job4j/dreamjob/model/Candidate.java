@@ -14,4 +14,20 @@ public class Candidate {
         this.desc = desc;
         this.created = created;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public LocalDate getCreated() {
+        return created;
+    }
 }
