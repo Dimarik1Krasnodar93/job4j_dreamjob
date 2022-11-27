@@ -23,6 +23,7 @@ public class PostStore {
         return INST;
     }
 
+
     public void addPost(Post post) {
         posts.put(post.getId(), post);
     }
