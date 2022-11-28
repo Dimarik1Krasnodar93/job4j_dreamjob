@@ -6,9 +6,11 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class PostStore {
 
+    private static AtomicInteger id = new AtomicInteger(0);
     private static final PostStore INST = new PostStore();
 
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
@@ -25,7 +27,7 @@ public class PostStore {
 
 
     public void addPost(Post post) {
-        posts.put(post.getId(), post);
+        posts.put(id.getAndAdd(1), post);
     }
 
     public Collection<Post> findAll() {
