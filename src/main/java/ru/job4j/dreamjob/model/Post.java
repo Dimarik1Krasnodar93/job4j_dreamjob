@@ -27,6 +27,13 @@ public class Post {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 
     @Override
     public boolean equals(Object o) {
