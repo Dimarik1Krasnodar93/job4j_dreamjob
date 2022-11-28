@@ -18,25 +18,30 @@ import java.time.LocalDateTime;
 @Controller
 public class PostController {
     private final PostStore postStore = PostStore.instOf();
-    private PostService postService = PostService.instanceOf();
 
     @GetMapping("/posts")
     public String posts(Model model) {
-        return postService.posts(model, postStore);
+        model.addAttribute("posts", postStore.findAll());
+        return "posts";
     }
 
     @GetMapping("/formAddPost")
     public String addPost(Model model) {
-        return postService.addPost(model);
+        model.addAttribute("post", new Post(0, "Заполните название",
+                "Заполните описание",
+                LocalDateTime.now().toLocalDate()));
+        return "addPost";
     }
 
     @PostMapping("/createPost")
     public String createPost(@ModelAttribute Post post) {
-        return postService.createPost(post, postStore);
+        postStore.addPost(post);
+        return "redirect:/posts";
     }
 
     @GetMapping("/gotoView")
     public String gotoView(Model model) {
-        return postService.gotoView(model);
+        return "redirect:/index";
     }
 }
+

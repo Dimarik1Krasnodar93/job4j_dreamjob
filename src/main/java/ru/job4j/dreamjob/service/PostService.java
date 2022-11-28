@@ -8,10 +8,13 @@ import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.store.PostStore;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 public class PostService {
 
     private static PostService instance;
+    private PostStore store;
 
     public static PostService instanceOf() {
         if (instance == null) {
@@ -20,25 +23,16 @@ public class PostService {
         return instance;
     }
 
-
-    public String posts(Model model, PostStore postStore) {
-        model.addAttribute("posts", postStore.findAll());
+    public String posts(Model model) {
+        model.addAttribute("posts", store.findAll());
         return "posts";
     }
 
-    public String addPost(Model model) {
-        model.addAttribute("post", new Post(0, "Заполните название",
-                "Заполните описание",
-                LocalDateTime.now().toLocalDate()));
-        return "addPost";
+    public Collection<Post> findAll() {
+        return store.findAll();
     }
 
-    public String createPost(Post post, PostStore postStore) {
-        postStore.addPost(post);
-        return "redirect:/posts";
-    }
-
-    public String gotoView(Model model) {
-        return "redirect:/index";
+    public void addPost(Post post) {
+        store.addPost(post);
     }
 }
