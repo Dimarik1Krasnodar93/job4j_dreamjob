@@ -10,8 +10,6 @@ public class Post {
     private String description;
     private LocalDate created = LocalDateTime.now().toLocalDate();
 
-    public Post() {
-    }
 
     public Post(int id, String name, String description, LocalDate created) {
         this.id = id;
