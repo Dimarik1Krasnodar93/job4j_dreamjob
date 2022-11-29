@@ -27,8 +27,8 @@ public class PostStore {
 
 
     public void addPost(Post post) {
-        id.set(post.getId());
-        posts.put(id.get(), post);
+        post.setId(id.incrementAndGet());
+        posts.put(post.getId(), post);
     }
 
     public Collection<Post> findAll() {
