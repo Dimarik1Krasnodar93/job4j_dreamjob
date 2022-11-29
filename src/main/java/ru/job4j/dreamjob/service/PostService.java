@@ -14,13 +14,17 @@ import java.util.List;
 public class PostService {
 
     private static PostService instance;
-    private PostStore store;
+    private PostStore store = PostStore.instOf();
 
     public static PostService instanceOf() {
         if (instance == null) {
             instance = new PostService();
         }
         return instance;
+    }
+
+    public PostStore getStore() {
+        return store;
     }
 
     public String posts(Model model) {
