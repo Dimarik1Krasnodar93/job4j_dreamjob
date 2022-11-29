@@ -5,13 +5,13 @@ import java.time.LocalDate;
 public class Candidate {
     private int id;
     private String name;
-    private String desc;
+    private String description;
     private LocalDate created;
 
-    public Candidate(int id, String name, String desc, LocalDate created) {
+    public Candidate(int id, String name, String description, LocalDate created) {
         this.id = id;
         this.name = name;
-        this.desc = desc;
+        this.description = description;
         this.created = created;
     }
 
@@ -23,11 +23,15 @@ public class Candidate {
         return name;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
     public LocalDate getCreated() {
         return created;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
