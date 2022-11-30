@@ -14,11 +14,6 @@ public class PostService {
         return INSTANCE;
     }
 
-    public String posts(Model model) {
-        model.addAttribute("posts", store.findAll());
-        return "posts";
-    }
-
     public Post findById(int id) {
         return store.findById(id);
     }
