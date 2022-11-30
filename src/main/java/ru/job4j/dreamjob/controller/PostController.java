@@ -5,11 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.service.PostService;
-import ru.job4j.dreamjob.store.PostStore;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.InputStream;
 import java.time.LocalDateTime;
 
 @Controller
@@ -19,7 +15,7 @@ public class PostController {
 
     @GetMapping("/posts")
     public String posts(Model model) {
-        model.addAttribute("posts", postService.getStore().findAll());
+        model.addAttribute("posts", postService.findAll());
         return "posts";
     }
 
@@ -33,7 +29,7 @@ public class PostController {
 
     @PostMapping("/createPost")
     public String createPost(@ModelAttribute Post post) {
-        postService.getStore().addPost(post);
+        postService.addPost(post);
         return "redirect:/posts";
     }
 
@@ -44,13 +40,13 @@ public class PostController {
 
     @GetMapping("/formUpdatePost/{postId}")
     public String formUpdatePost(Model model, @PathVariable("postId") int id) {
-        model.addAttribute("post", postService.getStore().findById(id));
+        model.addAttribute("post", postService.findById(id));
         return "updatePost";
     }
 
     @PostMapping("/updatePost")
     public String updatePost(@ModelAttribute Post post) {
-        postService.getStore().updatePost(post);
+        postService.updatePost(post);
         return "redirect:/posts";
     }
 }
