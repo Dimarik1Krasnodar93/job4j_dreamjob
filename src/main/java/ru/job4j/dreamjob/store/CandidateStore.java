@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.store;
 
+import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.model.Post;
 
@@ -9,9 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Repository
 public class CandidateStore {
 
-    private static final CandidateStore INSTANCE = new CandidateStore();
     private Map<Integer, Candidate> map = new HashMap<>();
     private AtomicInteger id = new AtomicInteger(3);
 
@@ -22,10 +23,6 @@ public class CandidateStore {
                 LocalDate.of(2020, 1, 1)));
         map.put(3, new Candidate(3, "Dmitry", "Junior developer",
                 LocalDate.of(2022, 1, 1)));
-    }
-
-    public static CandidateStore instanceOf() {
-            return INSTANCE;
     }
 
     public Collection<Candidate> findAll() {

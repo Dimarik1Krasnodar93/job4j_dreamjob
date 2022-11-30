@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.store;
 
+import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Post;
 
 import java.time.LocalDate;
@@ -8,6 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Repository
 public class PostStore {
 
     private static AtomicInteger id = new AtomicInteger(3);
@@ -21,9 +23,6 @@ public class PostStore {
         posts.put(3, new Post(3, "Senior Java Job1", "description 3", LocalDate.of(2022, 9, 1)));
     }
 
-    public static PostStore instOf() {
-        return INST;
-    }
 
     public void addPost(Post post) {
         post.setId(id.incrementAndGet());
