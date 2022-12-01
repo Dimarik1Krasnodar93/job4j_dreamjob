@@ -8,12 +8,13 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class CandidateStore {
 
-    private Map<Integer, Candidate> map = new HashMap<>();
+    private Map<Integer, Candidate> map = new ConcurrentHashMap<>();
     private AtomicInteger id = new AtomicInteger(3);
 
     private CandidateStore() {
