@@ -11,13 +11,15 @@ public class Post  implements Serializable {
     private String description;
     private LocalDate created = LocalDateTime.now().toLocalDate();
     private boolean visible;
+    private City city;
 
 
-    public Post(int id, String name, String description, LocalDate created) {
+    public Post(int id, String name, String description, LocalDate created, City city) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.created = created;
+        this.city = city;
     }
 
 
@@ -43,6 +45,10 @@ public class Post  implements Serializable {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public City getCity() {
+        return city;
     }
 
     @Override

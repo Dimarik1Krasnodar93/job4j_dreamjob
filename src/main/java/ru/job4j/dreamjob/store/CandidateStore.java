@@ -2,6 +2,7 @@ package ru.job4j.dreamjob.store;
 
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Candidate;
+import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
 
 import java.time.LocalDate;
@@ -19,11 +20,11 @@ public class CandidateStore {
 
     private CandidateStore() {
         map.put(1, new Candidate(1, "Ivan", "Programmer",
-                LocalDate.of(2020, 2, 1)));
+                LocalDate.of(2020, 2, 1), new City(1, "Moscow")));
         map.put(2, new Candidate(2, "Petr", "Lead developer",
-                LocalDate.of(2020, 1, 1)));
+                LocalDate.of(2020, 1, 1), new City(1, "Moscow")));
         map.put(3, new Candidate(3, "Dmitry", "Junior developer",
-                LocalDate.of(2022, 1, 1)));
+                LocalDate.of(2022, 1, 1), new City(1, "Moscow")));
     }
 
     public Collection<Candidate> findAll() {
