@@ -50,6 +50,10 @@
                         <label for="description">Описание</label>
                         <input type="text" class="form-control" name="description" id="description" th:field="*{description}">
                     </div>
+                    <div class="form-check">
+                        <input type="checkbox" name="visible" class="form-check-input" id="visible">
+                        <label class="form-check-label" for="visible">Опубликовать</label>
+                    </div>
                     <input hidden type="text" class="form-control" name="created" id="created" th:field="*{created}">
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>

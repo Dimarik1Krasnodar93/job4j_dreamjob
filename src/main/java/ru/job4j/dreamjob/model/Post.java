@@ -39,7 +39,7 @@ public class Post  implements Serializable {
         return description;
     }
 
-    public boolean isVisible() {
+    public boolean getVisible() {
         return visible;
     }
 
@@ -50,6 +50,8 @@ public class Post  implements Serializable {
     public City getCity() {
         return city;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

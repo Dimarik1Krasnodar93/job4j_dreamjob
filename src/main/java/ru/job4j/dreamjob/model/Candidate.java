@@ -9,6 +9,7 @@ public class Candidate {
     private LocalDate created;
     private City city;
     private byte[] photo;
+    private boolean visible;
 
     public Candidate(int id, String name, String description, LocalDate created, City city) {
         this.id = id;
@@ -44,6 +45,10 @@ public class Candidate {
 
     public byte[] getPhoto() {
         return photo;
+    }
+
+    public boolean isVisible() {
+        return visible;
     }
 
     public void setPhoto(byte[] photo) {
