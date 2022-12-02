@@ -1,13 +1,20 @@
 package ru.job4j.dreamjob.controller;
 
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.service.CandidatesService;
 import ru.job4j.dreamjob.service.CityService;
 import ru.job4j.dreamjob.store.CandidateStore;
 
+import javax.annotation.Resource;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Controller
@@ -34,7 +41,8 @@ public class CandidateController {
     }
 
     @PostMapping("/createCandidate")
-    public String createCandidate(@ModelAttribute Candidate candidate) {
+    public String createCandidate(@ModelAttribute Candidate candidate, @RequestParam("file") MultipartFile file) throws IOException {
+        candidate.setPhoto(file.getBytes());
         candidatesService.getStore().addCandidate(candidate);
         return "redirect:/candidates";
     }
@@ -50,5 +58,16 @@ public class CandidateController {
         model.addAttribute("candidate", candidatesService.getStore().findById(id));
         return "updateCandidate";
     }
+
+    @GetMapping("/photoCandidate/{candidateId}")
+    public ResponseEntity<ByteArrayResource> download(@PathVariable("candidateId") Integer candidateId) {
+        Candidate candidate = candidatesService.getById(candidateId);
+        return ResponseEntity.ok()
+                .headers(new HttpHeaders())
+                .contentLength(candidate.getPhoto().length)
+                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .body(new ByteArrayResource(candidate.getPhoto()));
+    }
+
 
 }
