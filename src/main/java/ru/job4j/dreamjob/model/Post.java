@@ -13,6 +13,18 @@ public class Post  implements Serializable {
     private boolean visible;
     private City city;
 
+    public Post(int id, String name, boolean visible) {
+        this.name = name;
+        this.visible = visible;
+    }
+
+    public Post(int id, String name, String description, boolean visible) {
+
+    }
+
+    public Post(int id, String name, String description, LocalDate created, boolean visible) {
+
+    }
 
     public Post(int id, String name, String description, LocalDate created, City city) {
         this.id = id;
