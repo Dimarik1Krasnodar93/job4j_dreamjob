@@ -17,23 +17,6 @@ public class Post  implements Serializable {
 
     }
 
-    public Post(int id, String name, boolean visible) {
-        this.name = name;
-        this.visible = visible;
-    }
-
-    public Post(int id, String name, String description, boolean visible) {
-
-    }
-
-    public Post(int id, String name) {
-
-    }
-
-    public Post(int id, String name, String description, LocalDate created, boolean visible) {
-
-    }
-
     public Post(int id, String name, String description, LocalDate created, City city) {
         this.id = id;
         this.name = name;
@@ -48,7 +31,6 @@ public class Post  implements Serializable {
         this.description = description;
         this.created = created;
     }
-
 
     public int getId() {
         return id;
@@ -78,7 +60,17 @@ public class Post  implements Serializable {
         return city;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
 
     @Override
     public boolean equals(Object o) {

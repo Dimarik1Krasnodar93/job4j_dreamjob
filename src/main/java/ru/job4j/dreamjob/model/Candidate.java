@@ -47,8 +47,24 @@ public class Candidate {
         return photo;
     }
 
-    public boolean isVisible() {
+    public boolean getVisible() {
         return visible;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     public void setPhoto(byte[] photo) {
