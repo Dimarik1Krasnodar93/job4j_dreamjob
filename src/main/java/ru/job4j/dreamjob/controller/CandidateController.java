@@ -43,18 +43,21 @@ public class CandidateController {
     @PostMapping("/createCandidate")
     public String createCandidate(@ModelAttribute Candidate candidate, @RequestParam("file") MultipartFile file) throws IOException {
         candidate.setPhoto(file.getBytes());
+        candidate.setCity(cityService.findById(candidate.getCity().getId()));
         candidatesService.getStore().addCandidate(candidate);
         return "redirect:/candidates";
     }
 
     @PostMapping("/updateCandidate")
     public String updateCandidate(@ModelAttribute Candidate candidate) {
+        candidate.setCity(cityService.findById(candidate.getCity().getId()));
         candidatesService.getStore().updateCandidate(candidate);
         return "redirect:/candidates";
     }
 
     @GetMapping("/formUpdateCandidate/{candidateId}")
     public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id) {
+        model.addAttribute("cities", cityService.getAllCities());
         model.addAttribute("candidate", candidatesService.getStore().findById(id));
         return "updateCandidate";
     }
