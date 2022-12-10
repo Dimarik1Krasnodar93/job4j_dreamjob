@@ -1,0 +1,1 @@
+ALTER TABLE users ADD CONSTANT email_unique UNIQUE (email);
