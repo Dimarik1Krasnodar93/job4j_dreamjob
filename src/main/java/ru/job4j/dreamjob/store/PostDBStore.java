@@ -32,7 +32,6 @@ public class PostDBStore {
         ) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
-                    it.getInt("i3d");
                     Post post = new Post(it.getInt("id"), it.getString("name"),
                             it.getString("description"), it.getTimestamp("created").toLocalDateTime().toLocalDate(),
                             it.getBoolean("visible"), cityService.findById(it.getInt("id_city")));
