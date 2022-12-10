@@ -20,6 +20,27 @@ public class Candidate {
         this.city = city;
     }
 
+    public Candidate(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Candidate(int id, String name, byte[] photo) {
+        this.id = id;
+        this.name = name;
+        this.photo = photo.clone();
+    }
+
+    public Candidate(int id, String name, String description, LocalDate created, City city, byte[] photo, boolean visible) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.created = created;
+        this.city = city;
+        this.photo = photo;
+        this.visible = visible;
+    }
+
     public Candidate() {
 
     }

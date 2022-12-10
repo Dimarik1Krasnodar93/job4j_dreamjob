@@ -5,6 +5,6 @@ CREATE TABLE candidate (
    created timestamp,
    visible bool,
    id_city int,
-   photo varbinary(max)
+   photo bytea
 );
 

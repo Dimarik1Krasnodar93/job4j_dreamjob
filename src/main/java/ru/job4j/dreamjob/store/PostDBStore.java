@@ -28,8 +28,7 @@ public class PostDBStore {
     public List<Post> findAll() {
         List<Post> posts = new ArrayList<>();
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement(PostQueries.FIND_ALL);
-        ) {
+             PreparedStatement ps =  cn.prepareStatement(PostQueries.FIND_ALL)) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
                     Post post = new Post(it.getInt("id"), it.getString("name"),
