@@ -11,6 +11,7 @@ import java.util.Collection;
 public class PostService {
 
     private final PostDBStore store;
+    private final CityService cityService = new CityService();
 
     public PostService(PostDBStore store) {
         this.store = store;
@@ -25,7 +26,13 @@ public class PostService {
     }
 
     public Collection<Post> findAll() {
-        return store.findAll();
+        Collection<Post> posts = store.findAll();
+        posts.forEach(
+                post -> post.setCity(
+                        cityService.findById(post.getCity().getId())
+                )
+        );
+        return posts;
     }
 
     public void addPost(Post post) {
