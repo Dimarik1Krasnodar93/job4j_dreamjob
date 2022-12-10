@@ -11,11 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.service.CandidatesService;
 import ru.job4j.dreamjob.service.CityService;
-import ru.job4j.dreamjob.store.CandidateStore;
-
-import javax.annotation.Resource;
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 @Controller
 public class CandidateController {
@@ -30,7 +26,7 @@ public class CandidateController {
 
     @GetMapping("/candidates")
     public String getCandidates(Model model) {
-        model.addAttribute("candidates", candidatesService.getStore().findAll());
+        model.addAttribute("candidates", candidatesService.findAll());
         return "candidates";
     }
 
@@ -44,27 +40,27 @@ public class CandidateController {
     public String createCandidate(@ModelAttribute Candidate candidate, @RequestParam("file") MultipartFile file) throws IOException {
         candidate.setPhoto(file.getBytes());
         candidate.setCity(cityService.findById(candidate.getCity().getId()));
-        candidatesService.getStore().addCandidate(candidate);
+        candidatesService.addCandidate(candidate);
         return "redirect:/candidates";
     }
 
     @PostMapping("/updateCandidate")
     public String updateCandidate(@ModelAttribute Candidate candidate) {
         candidate.setCity(cityService.findById(candidate.getCity().getId()));
-        candidatesService.getStore().updateCandidate(candidate);
+        candidatesService.updateCandidate(candidate);
         return "redirect:/candidates";
     }
 
     @GetMapping("/formUpdateCandidate/{candidateId}")
     public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id) {
         model.addAttribute("cities", cityService.getAllCities());
-        model.addAttribute("candidate", candidatesService.getStore().findById(id));
+        model.addAttribute("candidate", candidatesService.findById(id));
         return "updateCandidate";
     }
 
     @GetMapping("/photoCandidate/{candidateId}")
     public ResponseEntity<ByteArrayResource> download(@PathVariable("candidateId") Integer candidateId) {
-        Candidate candidate = candidatesService.getById(candidateId);
+        Candidate candidate = candidatesService.findById(candidateId);
         return ResponseEntity.ok()
                 .headers(new HttpHeaders())
                 .contentLength(candidate.getPhoto().length)
