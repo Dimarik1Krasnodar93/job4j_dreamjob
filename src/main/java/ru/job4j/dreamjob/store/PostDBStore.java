@@ -1,15 +1,16 @@
 package ru.job4j.dreamjob.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
+import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.queries.PostQueries;
 import ru.job4j.dreamjob.service.CityService;
 
 import java.sql.*;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class PostDBStore {
 
     private final BasicDataSource pool;
     private final CityService cityService = new CityService();
-    private final Logger logger = LoggerFactory.getLogger(PostDBStore.class.getName());
+    private final Logger logger = LogManager.getLogger(PostDBStore.class);
 
     public PostDBStore(BasicDataSource pool) {
         this.pool = pool;
@@ -33,7 +34,7 @@ public class PostDBStore {
                 while (it.next()) {
                     Post post = new Post(it.getInt("id"), it.getString("name"),
                             it.getString("description"), it.getTimestamp("created").toLocalDateTime().toLocalDate(),
-                            it.getBoolean("visible"), cityService.findById(it.getInt("id_city")));
+                            it.getBoolean("visible"), new City(it.getInt("id_city"), ""));
                     posts.add(post);
                 }
             }
