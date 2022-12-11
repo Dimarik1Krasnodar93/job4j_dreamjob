@@ -12,6 +12,7 @@ import ru.job4j.dreamjob.service.CityService;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Repository
 public class UserDBStore {
@@ -23,15 +24,23 @@ public class UserDBStore {
         this.pool = pool;
     }
 
-    public void addUser(User user) {
+    public Optional<User> addUser(User user) {
+        Optional<User> result = Optional.empty();
         try (Connection cn = pool.getConnection()) {
-            PreparedStatement ps =  cn.prepareStatement(UserQueries.ADD);
+            PreparedStatement ps =  cn.prepareStatement(UserQueries.ADD, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, user.getEmail());
             ps.setString(2, user.getPassword());
             ps.execute();
+            ResultSet  resultSet = ps.getGeneratedKeys();
+            if (resultSet.next()) {
+                if (resultSet.getInt(1) != 0) {
+                    result = Optional.of(user);
+                }
+            }
         } catch (SQLException e) {
             logger.error(e.getMessage());
         }
+        return result;
     }
 
     public User findUserByEmail(String email) {
