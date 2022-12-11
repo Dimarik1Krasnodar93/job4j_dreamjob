@@ -82,16 +82,23 @@ public class CandidateDBStore {
             ps.setInt(1, id);
             try (ResultSet it = ps.executeQuery()) {
                 if (it.next()) {
-                    Candidate candidate = new Candidate(it.getInt("id"), it.getString("name"),
-                            it.getBytes("photo"));
-                    candidate.setCity(cityService.findById(it.getInt("id_city")));
-                    return candidate;
+                    return getCandidateFromResultSet(it);
                 }
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
         return null;
+    }
+
+    private Candidate getCandidateFromResultSet(ResultSet it) throws Exception {
+        return new Candidate(it.getInt("id"), it.getString("name"),
+                it.getString("description"),
+                it.getTimestamp("created").toLocalDateTime().toLocalDate(),
+                cityService.findById(it.getInt("id_city")),
+                it.getBytes("photo"),
+                it.getBoolean("visible")
+                );
     }
 
 }
