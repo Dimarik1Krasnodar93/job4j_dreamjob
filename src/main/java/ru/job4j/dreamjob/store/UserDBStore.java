@@ -11,7 +11,6 @@ import ru.job4j.dreamjob.queries.UserQueries;
 import ru.job4j.dreamjob.service.CityService;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Repository
@@ -33,12 +32,12 @@ public class UserDBStore {
             ps.execute();
             ResultSet  resultSet = ps.getGeneratedKeys();
             if (resultSet.next()) {
-                if (resultSet.getInt(1) != 0) {
+                if (resultSet.getInt("id") != 0) {
                     result = Optional.of(user);
                 }
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
         }
         return result;
     }
@@ -56,7 +55,7 @@ public class UserDBStore {
                 }
             }
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
         }
         return null;
     }
