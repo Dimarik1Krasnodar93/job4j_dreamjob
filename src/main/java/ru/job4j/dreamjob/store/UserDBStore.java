@@ -38,9 +38,28 @@ public class UserDBStore {
         return result;
     }
 
+    public Optional<User> findUserByEmailAndPassword(String email, String password) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =  cn.prepareStatement(UserQueries.FIND_EMAIL_PASSWORD);
+        ) {
+            ps.setString(1, email);
+            ps.setString(2, password);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    User user = new User(it.getInt("id"), it.getString("email"),
+                            it.getString("password"));
+                    return Optional.of(user);
+                }
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return Optional.empty();
+    }
+
     public User findUserByEmail(String email) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement(PostQueries.FIND);
+             PreparedStatement ps =  cn.prepareStatement(UserQueries.FIND);
         ) {
             ps.setString(1, email);
             try (ResultSet it = ps.executeQuery()) {

@@ -19,6 +19,10 @@ public class UserService {
         return userDBStore.findUserByEmail(email);
     }
 
+    public Optional<User> findUserByEmailAndPassword(String email, String password) {
+        return userDBStore.findUserByEmailAndPassword(email, password);
+    }
+
     public Optional<User> add(User user) {
         return userDBStore.addUser(user);
     }

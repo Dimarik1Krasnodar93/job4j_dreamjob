@@ -19,7 +19,7 @@ public class User {
         return password;
     }
 
-    public int getInt() {
+    public int getId() {
         return id;
     }
 }
