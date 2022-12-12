@@ -46,7 +46,7 @@ public class PostDBStore {
 
     public void updatePost(Post post) {
         try (Connection cn = pool.getConnection()) {
-            PreparedStatement ps =  cn.prepareStatement(PostQueries.UPDATE);
+            PreparedStatement ps =  cn.prepareStatement(PostQueries.UPDATE, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, post.getName());
             ps.setString(2, post.getDescription());
             ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.of(post.getCreated().getYear(),
@@ -55,6 +55,10 @@ public class PostDBStore {
             ps.setInt(5, post.getCity().getId());
             ps.setInt(6, post.getId());
             ps.execute();
+            ResultSet gk = ps.getGeneratedKeys();
+            if (gk.next()) {
+                post.setId(gk.getInt("id"));
+            }
         } catch (SQLException e) {
             logger.error(e.getMessage());
         }
@@ -62,7 +66,7 @@ public class PostDBStore {
 
     public void addPost(Post post) {
         try (Connection cn = pool.getConnection()) {
-            PreparedStatement ps =  cn.prepareStatement(PostQueries.ADD);
+            PreparedStatement ps =  cn.prepareStatement(PostQueries.ADD, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, post.getName());
             ps.setString(2, post.getDescription());
             ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.of(post.getCreated().getYear(),
@@ -70,6 +74,10 @@ public class PostDBStore {
             ps.setBoolean(4, post.getVisible());
             ps.setInt(5, post.getCity().getId());
             ps.execute();
+            ResultSet gk = ps.getGeneratedKeys();
+            if (gk.next()) {
+                post.setId(gk.getInt("id"));
+            }
         } catch (SQLException e) {
             logger.error(e.getMessage());
         }
@@ -86,7 +94,7 @@ public class PostDBStore {
                 }
             }
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
         }
         return null;
     }
