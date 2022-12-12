@@ -82,14 +82,18 @@ public class PostDBStore {
             ps.setInt(1, id);
             try (ResultSet it = ps.executeQuery()) {
                 if (it.next()) {
-                    Post post = new Post(it.getInt("id"), it.getString("name"));
-                    post.setCity(cityService.findById(it.getInt("id_city")));
-                    return post;
+                    return getPost(it);
                 }
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
         return null;
+    }
+
+    private Post getPost(ResultSet it) throws SQLException {
+        Post post = new Post(it.getInt("id"), it.getString("name"));
+        post.setCity(cityService.findById(it.getInt("id_city")));
+        return post;
     }
 }
