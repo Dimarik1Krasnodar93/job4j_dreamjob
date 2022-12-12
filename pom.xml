@@ -35,7 +35,6 @@
         </profile>
     </profiles>
 
-
     <dependencies>
         <dependency>
             <groupId>com.h2database</groupId>
