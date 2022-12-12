@@ -7,12 +7,12 @@ public class Candidate {
     private int id;
     private String name;
     private String description;
-    private LocalDate created = LocalDate.now();
+    private LocalDateTime created = LocalDateTime.now();
     private City city;
     private byte[] photo;
     private boolean visible;
 
-    public Candidate(int id, String name, String description, LocalDate created, City city) {
+    public Candidate(int id, String name, String description, LocalDateTime created, City city) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -31,7 +31,7 @@ public class Candidate {
         this.photo = photo.clone();
     }
 
-    public Candidate(int id, String name, String description, LocalDate created, City city, byte[] photo, boolean visible) {
+    public Candidate(int id, String name, String description, LocalDateTime created, City city, byte[] photo, boolean visible) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -57,7 +57,7 @@ public class Candidate {
         return description;
     }
 
-    public LocalDate getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 

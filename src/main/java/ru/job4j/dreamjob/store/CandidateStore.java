@@ -6,6 +6,7 @@ import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,11 +21,11 @@ public class CandidateStore {
 
     private CandidateStore() {
         map.put(1, new Candidate(1, "Ivan", "Programmer",
-                LocalDate.of(2020, 2, 1), new City(1, "Moscow")));
+                LocalDateTime.of(2020, 2, 1, 0, 0, 0), new City(1, "Moscow")));
         map.put(2, new Candidate(2, "Petr", "Lead developer",
-                LocalDate.of(2020, 1, 1), new City(1, "Moscow")));
+                LocalDateTime.of(2020, 1, 1, 0, 0, 0), new City(1, "Moscow")));
         map.put(3, new Candidate(3, "Dmitry", "Junior developer",
-                LocalDate.of(2022, 1, 1), new City(1, "Moscow")));
+                LocalDateTime.of(2022, 1, 1, 0, 0, 0), new City(1, "Moscow")));
     }
 
     public Collection<Candidate> findAll() {
