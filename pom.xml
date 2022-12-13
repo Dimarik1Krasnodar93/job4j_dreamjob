@@ -18,7 +18,10 @@
         <profile>
             <id>test</id>
             <properties>
-                <liquibase.config>db/test.properties</liquibase.config>
+                <db.url>jdbc:h2:${basedir}/testdb;MODE=PostgreSQL;CASE_INSENSITIVE_IDENTIFIERS=TRUE;</db.url>
+                <db.username></db.username>
+                <db.password></db.password>
+                <db.driver>org.h2.Driver</db.driver>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -117,7 +120,7 @@
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>4.15.0</version>
+                <version>3.6.2</version>
                 <configuration>
                     <changeLogFile>${basedir}/db/master.xml</changeLogFile>
                     <url>${db.url}</url>

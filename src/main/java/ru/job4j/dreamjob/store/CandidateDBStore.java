@@ -41,7 +41,7 @@ public class CandidateDBStore {
 
     public void updateCandidate(Candidate candidate) {
         try (Connection cn = pool.getConnection()) {
-            PreparedStatement ps =  cn.prepareStatement(CandidateQueries.UPDATE);
+            PreparedStatement ps =  cn.prepareStatement(CandidateQueries.UPDATE, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, candidate.getName());
             ps.setString(2, candidate.getDescription());
             ps.setTimestamp(3, Timestamp.valueOf(candidate.getCreated()));
@@ -50,6 +50,10 @@ public class CandidateDBStore {
             ps.setBytes(6, candidate.getPhoto());
             ps.setInt(7, candidate.getId());
             ps.execute();
+            ResultSet gk = ps.getGeneratedKeys();
+            if (gk.next()) {
+                candidate.setId(gk.getInt("id"));
+            }
         } catch (SQLException e) {
             logger.error(e.getMessage());
         }
@@ -57,7 +61,7 @@ public class CandidateDBStore {
 
     public void addCandidate(Candidate candidate) {
         try (Connection cn = pool.getConnection()) {
-            PreparedStatement ps =  cn.prepareStatement(CandidateQueries.ADD);
+            PreparedStatement ps =  cn.prepareStatement(CandidateQueries.ADD, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, candidate.getName());
             ps.setString(2, candidate.getDescription());
             ps.setTimestamp(3, Timestamp.valueOf(candidate.getCreated()));
@@ -65,6 +69,10 @@ public class CandidateDBStore {
             ps.setInt(5, candidate.getCity().getId());
             ps.setBytes(6, candidate.getPhoto());
             ps.execute();
+            ResultSet gk = ps.getGeneratedKeys();
+            if (gk.next()) {
+                candidate.setId(gk.getInt("id"));
+            }
         } catch (SQLException e) {
             logger.error(e.getMessage());
         }
