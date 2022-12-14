@@ -19,7 +19,6 @@ public class UserDBStore {
     }
 
     public Optional<User> addUser(User user) {
-        Optional<User> result = Optional.empty();
         try (Connection cn = pool.getConnection()) {
             PreparedStatement ps =  cn.prepareStatement(UserQueries.ADD, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, user.getEmail());
@@ -27,12 +26,12 @@ public class UserDBStore {
             ps.execute();
             ResultSet  resultSet = ps.getGeneratedKeys();
             if (resultSet.next()) {
-                result = Optional.of(user);
+                return Optional.of(user);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
         }
-        return result;
+        return Optional.empty();
     }
 
     public Optional<User> findUserByEmailAndPassword(String email, String password) {
