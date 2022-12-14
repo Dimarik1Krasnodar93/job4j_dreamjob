@@ -17,7 +17,6 @@ import org.apache.logging.log4j.Logger;
 @Repository
 public class CandidateDBStore {
     private BasicDataSource pool;
-    private final CityService cityService = new CityService();
     private final Logger logger = LogManager.getLogger(CandidateDBStore.class);
 
     public CandidateDBStore(BasicDataSource pool) {
