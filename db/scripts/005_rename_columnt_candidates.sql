@@ -1,0 +1,1 @@
+ALTER TABLE candidate RENAME COLUMN id_city TO city_id;

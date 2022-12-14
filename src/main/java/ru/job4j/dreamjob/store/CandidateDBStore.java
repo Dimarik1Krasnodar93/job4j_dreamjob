@@ -3,6 +3,7 @@ package ru.job4j.dreamjob.store;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Candidate;
+import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.queries.CandidateQueries;
 import ru.job4j.dreamjob.service.CityService;
 import java.sql.*;
@@ -97,7 +98,7 @@ public class CandidateDBStore {
         return new Candidate(it.getInt("id"), it.getString("name"),
                 it.getString("description"),
                 it.getTimestamp("created").toLocalDateTime(),
-                cityService.findById(it.getInt("id_city")),
+                new City(it.getInt("city_id"), ""),
                 it.getBytes("photo"),
                 it.getBoolean("visible")
                 );
