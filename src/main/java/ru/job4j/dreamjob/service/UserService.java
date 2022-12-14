@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.store.UserDBStore;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -16,7 +17,7 @@ public class UserService {
     }
 
     public User findUserByEmail(String email) {
-        return userDBStore.findUserByEmail(email);
+        return userDBStore.findUserByEmail(email).orElseThrow(() -> new NoSuchElementException());
     }
 
     public Optional<User> findUserByEmailAndPassword(String email, String password) {
