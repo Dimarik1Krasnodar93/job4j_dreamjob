@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.User;
-import ru.job4j.dreamjob.queries.PostQueries;
 import ru.job4j.dreamjob.queries.UserQueries;
 import java.sql.*;
 import java.util.Optional;
@@ -28,9 +27,7 @@ public class UserDBStore {
             ps.execute();
             ResultSet  resultSet = ps.getGeneratedKeys();
             if (resultSet.next()) {
-                if (resultSet.getInt("id") != 0) {
-                    result = Optional.of(user);
-                }
+                result = Optional.of(user);
             }
         } catch (SQLException e) {
             logger.error(e.getMessage(), e);
@@ -57,7 +54,7 @@ public class UserDBStore {
         return Optional.empty();
     }
 
-    public User findUserByEmail(String email) {
+    public Optional<User> findUserByEmail(String email) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement(UserQueries.FIND);
         ) {
@@ -66,12 +63,12 @@ public class UserDBStore {
                 if (it.next()) {
                     User user = new User(it.getInt("id"), it.getString("email"),
                             it.getString("password"));
-                    return user;
+                    return Optional.of(user);
                 }
             }
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
-        return null;
+        return Optional.empty();
     }
 }
