@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.yaml.snakeyaml.reader.StreamReader;
+import ru.job4j.dreamjob.additional.UserAdditional;
 import ru.job4j.dreamjob.model.User;
 
 
@@ -17,11 +18,7 @@ public class IndexControl {
 
     @GetMapping("/index")
     public String index(Model model, HttpSession httpSession) {
-        User user = (User) httpSession.getAttribute("user");
-        if (user == null) {
-            user = new User(0, "", "");
-            user.setName("Гость");
-        }
+        User user = UserAdditional.getFromHtthSession(httpSession);
         model.addAttribute("user", user);
           return "index";
     }
