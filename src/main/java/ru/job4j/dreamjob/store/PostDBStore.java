@@ -19,7 +19,6 @@ import java.util.List;
 public class PostDBStore {
 
     private final BasicDataSource pool;
-    private final CityService cityService = new CityService();
     private final Logger logger = LogManager.getLogger(PostDBStore.class);
 
     public PostDBStore(BasicDataSource pool) {
@@ -32,14 +31,12 @@ public class PostDBStore {
              PreparedStatement ps =  cn.prepareStatement(PostQueries.FIND_ALL)) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
-                    Post post = new Post(it.getInt("id"), it.getString("name"),
-                            it.getString("description"), it.getTimestamp("created").toLocalDateTime().toLocalDate(),
-                            it.getBoolean("visible"), new City(it.getInt("id_city"), ""));
+                    Post post = getPost(it);
                     posts.add(post);
                 }
             }
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
         }
         return posts;
     }
@@ -60,7 +57,7 @@ public class PostDBStore {
                 post.setId(gk.getInt("id"));
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -79,7 +76,7 @@ public class PostDBStore {
                 post.setId(gk.getInt("id"));
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage());
+            logger.error(e.getMessage(), e);
         }
     }
 
@@ -100,8 +97,8 @@ public class PostDBStore {
     }
 
     private Post getPost(ResultSet it) throws SQLException {
-        Post post = new Post(it.getInt("id"), it.getString("name"));
-        post.setCity(cityService.findById(it.getInt("id_city")));
-        return post;
+        return new Post(it.getInt("id"), it.getString("name"),
+            it.getString("description"), it.getTimestamp("created").toLocalDateTime().toLocalDate(),
+                it.getBoolean("visible"), new City(it.getInt("id_city"), ""));
     }
 }
