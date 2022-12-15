@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public class UserDBStore {
     private final BasicDataSource pool;
-    private final Logger LOGGER = LoggerFactory.getLogger(UserDBStore.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserDBStore.class.getName());
 
     public UserDBStore(BasicDataSource pool) {
         this.pool = pool;
