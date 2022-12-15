@@ -31,7 +31,7 @@ public class PostController {
     public String addPost(Model model) {
         model.addAttribute("post", new Post(0, "Заполните название",
                 "Заполните описание",
-                LocalDateTime.now().toLocalDate()));
+                LocalDateTime.now()));
         model.addAttribute("cities", cityService.getAllCities());
         return "addPost";
     }

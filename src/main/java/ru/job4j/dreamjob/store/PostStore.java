@@ -5,6 +5,7 @@ import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,9 +20,9 @@ public class PostStore {
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
     private PostStore() {
-        posts.put(1, new Post(1, "Junior Java Job", "description 1", LocalDate.of(2022, 1, 1), new City(1, "Moscow")));
-        posts.put(2, new Post(2, "Middle Java Job", "description 2", LocalDate.of(2022, 10, 1), new City(1, "Moscow")));
-        posts.put(3, new Post(3, "Senior Java Job1", "description 3", LocalDate.of(2022, 9, 1), new City(1, "Moscow")));
+        posts.put(1, new Post(1, "Junior Java Job", "description 1", LocalDateTime.of(2022, 1, 1, 0, 0 ,0), new City(1, "Moscow")));
+        posts.put(2, new Post(2, "Middle Java Job", "description 2", LocalDateTime.of(2022, 10, 1, 0, 0, 0), new City(1, "Moscow")));
+        posts.put(3, new Post(3, "Senior Java Job1", "description 3", LocalDateTime.of(2022, 9, 1, 0, 0, 0), new City(1, "Moscow")));
     }
 
 

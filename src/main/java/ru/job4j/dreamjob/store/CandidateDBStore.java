@@ -5,9 +5,7 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.queries.CandidateQueries;
-import ru.job4j.dreamjob.service.CityService;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -17,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 @Repository
 public class CandidateDBStore {
     private BasicDataSource pool;
-    private final Logger logger = LogManager.getLogger(CandidateDBStore.class);
+    private static final Logger LOGGER = LogManager.getLogger(CandidateDBStore.class);
 
     public CandidateDBStore(BasicDataSource pool) {
         this.pool = pool;
@@ -34,7 +32,7 @@ public class CandidateDBStore {
                 }
             }
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
         return candidates;
     }
@@ -55,7 +53,7 @@ public class CandidateDBStore {
                 candidate.setId(gk.getInt("id"));
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -74,7 +72,7 @@ public class CandidateDBStore {
                 candidate.setId(gk.getInt("id"));
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
     }
 
@@ -88,7 +86,7 @@ public class CandidateDBStore {
                 }
             }
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
         return null;
     }
