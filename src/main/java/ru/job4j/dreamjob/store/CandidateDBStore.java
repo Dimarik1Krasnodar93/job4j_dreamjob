@@ -32,7 +32,7 @@ public class CandidateDBStore {
                 }
             }
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return candidates;
     }
@@ -53,7 +53,7 @@ public class CandidateDBStore {
                 candidate.setId(gk.getInt("id"));
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -72,7 +72,7 @@ public class CandidateDBStore {
                 candidate.setId(gk.getInt("id"));
             }
         } catch (SQLException e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -86,7 +86,7 @@ public class CandidateDBStore {
                 }
             }
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return null;
     }
@@ -100,5 +100,4 @@ public class CandidateDBStore {
                 it.getBoolean("visible")
                 );
     }
-
 }

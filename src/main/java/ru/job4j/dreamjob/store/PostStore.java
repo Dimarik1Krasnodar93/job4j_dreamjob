@@ -28,7 +28,6 @@ public class PostStore {
                 LocalDateTime.of(2022, 9, 1, 0, 0, 0), new City(1, "Moscow")));
     }
 
-
     public void addPost(Post post) {
         post.setId(id.incrementAndGet());
         posts.put(post.getId(), post);
