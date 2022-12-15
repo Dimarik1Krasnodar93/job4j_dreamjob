@@ -20,9 +20,12 @@ public class PostStore {
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
     private PostStore() {
-        posts.put(1, new Post(1, "Junior Java Job", "description 1", LocalDateTime.of(2022, 1, 1, 0, 0 ,0), new City(1, "Moscow")));
-        posts.put(2, new Post(2, "Middle Java Job", "description 2", LocalDateTime.of(2022, 10, 1, 0, 0, 0), new City(1, "Moscow")));
-        posts.put(3, new Post(3, "Senior Java Job1", "description 3", LocalDateTime.of(2022, 9, 1, 0, 0, 0), new City(1, "Moscow")));
+        posts.put(1, new Post(1, "Junior Java Job", "description 1",
+                LocalDateTime.of(2022, 1, 1, 0, 0, 0), new City(1, "Moscow")));
+        posts.put(2, new Post(2, "Middle Java Job", "description 2",
+                LocalDateTime.of(2022, 10, 1, 0, 0, 0), new City(1, "Moscow")));
+        posts.put(3, new Post(3, "Senior Java Job1", "description 3",
+                LocalDateTime.of(2022, 9, 1, 0, 0, 0), new City(1, "Moscow")));
     }
 
 

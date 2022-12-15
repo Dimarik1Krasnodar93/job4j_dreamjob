@@ -16,7 +16,7 @@ import java.util.List;
 public class PostDBStore {
 
     private final BasicDataSource pool;
-    private static final Logger logger = LogManager.getLogger(PostDBStore.class);
+    private static final Logger LOGGER = LogManager.getLogger(PostDBStore.class);
 
     public PostDBStore(BasicDataSource pool) {
         this.pool = pool;
@@ -33,7 +33,7 @@ public class PostDBStore {
                 }
             }
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
         return posts;
     }
@@ -54,7 +54,7 @@ public class PostDBStore {
                 post.setId(gk.getInt("id"));
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -72,7 +72,7 @@ public class PostDBStore {
                 post.setId(gk.getInt("id"));
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -87,7 +87,7 @@ public class PostDBStore {
                 }
             }
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
         return null;
     }
