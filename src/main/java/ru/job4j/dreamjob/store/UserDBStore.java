@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public class UserDBStore {
     private final BasicDataSource pool;
-    private final Logger logger = LoggerFactory.getLogger(PostDBStore.class.getName());
+    private final Logger LOGGER = LoggerFactory.getLogger(UserDBStore.class.getName());
 
     public UserDBStore(BasicDataSource pool) {
         this.pool = pool;
@@ -29,7 +29,7 @@ public class UserDBStore {
                 return Optional.of(user);
             }
         } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
         return Optional.empty();
     }
@@ -48,7 +48,7 @@ public class UserDBStore {
                 }
             }
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
         return Optional.empty();
     }
@@ -66,7 +66,7 @@ public class UserDBStore {
                 }
             }
         } catch (Exception e) {
-            logger.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
         return Optional.empty();
     }
