@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.dreamjob.model.User;
+import ru.job4j.dreamjob.optional.UserAdditional;
 import ru.job4j.dreamjob.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,7 +23,9 @@ public class UserController {
     }
 
     @GetMapping("/formRegistration")
-    public String formRegistration(Model model) {
+    public String formRegistration(Model model, HttpSession httpSession) {
+        User user = UserAdditional.getFromHtthSession(httpSession);
+        model.addAttribute("user", user);
         model.addAttribute("user",  new User(0, "Enter email with @", "enter password"));
         return "/registration";
     }
@@ -38,7 +41,10 @@ public class UserController {
     }
 
     @GetMapping("/loginPage")
-    public String loginPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail) {
+    public String loginPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail,
+                            HttpSession httpSession) {
+        User user = UserAdditional.getFromHtthSession(httpSession);
+        model.addAttribute("user", user);
         model.addAttribute("fail", fail != null);
         model.addAttribute("user",  new User(0, "Enter email with @", "enter password"));
         return "login";
@@ -52,6 +58,14 @@ public class UserController {
         }
         HttpSession session = req.getSession();
         session.setAttribute("user", userDb.get());
+        return "redirect:/index";
+    }
+
+    @GetMapping("/logout")
+    public String logout(Model model, HttpSession httpSession) {
+        User user = UserAdditional.getFromHtthSession(httpSession);
+        user.setName("Гость");
+        model.addAttribute("user", user);
         return "redirect:/index";
     }
 }

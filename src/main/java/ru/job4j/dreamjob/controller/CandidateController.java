@@ -9,8 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.dreamjob.model.Candidate;
+import ru.job4j.dreamjob.model.User;
+import ru.job4j.dreamjob.optional.UserAdditional;
 import ru.job4j.dreamjob.service.CandidatesService;
 import ru.job4j.dreamjob.service.CityService;
+
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
@@ -25,13 +29,17 @@ public class CandidateController {
     }
 
     @GetMapping("/candidates")
-    public String getCandidates(Model model) {
+    public String getCandidates(Model model, HttpSession httpSession) {
+        User user = UserAdditional.getFromHtthSession(httpSession);
+        model.addAttribute("user", user);
         model.addAttribute("candidates", candidatesService.findAll());
         return "candidates";
     }
 
     @GetMapping("/formAddCandidate")
-    public String addCandidate(Model model) {
+    public String addCandidate(Model model, HttpSession httpSession) {
+        User user = UserAdditional.getFromHtthSession(httpSession);
+        model.addAttribute("user", user);
         model.addAttribute("cities", cityService.getAllCities());
         return "addCandidate";
     }
@@ -52,7 +60,9 @@ public class CandidateController {
     }
 
     @GetMapping("/formUpdateCandidate/{candidateId}")
-    public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id) {
+    public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id, HttpSession httpSession) {
+        User user = UserAdditional.getFromHtthSession(httpSession);
+        model.addAttribute("user", user);
         model.addAttribute("cities", cityService.getAllCities());
         model.addAttribute("candidate", candidatesService.findById(id));
         return "updateCandidate";
