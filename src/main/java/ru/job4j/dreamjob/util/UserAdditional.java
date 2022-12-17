@@ -1,4 +1,4 @@
-package ru.job4j.dreamjob.optional;
+package ru.job4j.dreamjob.util;
 
 import ru.job4j.dreamjob.model.User;
 
