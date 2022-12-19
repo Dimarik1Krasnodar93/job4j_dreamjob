@@ -22,7 +22,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/formRegistration")
+    @GetMapping("/registration")
     public String formRegistration(Model model, HttpSession httpSession) {
         User user = UserAdditional.getFromHtthSession(httpSession);
         model.addAttribute("user", user);
